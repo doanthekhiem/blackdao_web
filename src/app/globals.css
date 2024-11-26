@@ -27,7 +27,7 @@ body {
 }
 
 .noise-bg::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -36,4 +36,21 @@ body {
   background-color: #000d21;
   opacity: 0.7;
   pointer-events: none;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 100s linear infinite;
+  color: white;
+  font-family: monospace;
 }
