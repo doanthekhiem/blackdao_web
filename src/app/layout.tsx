@@ -9,7 +9,7 @@ const audiowide = Audiowide({
 
 export const metadata: Metadata = {
   title: "BlackDAO",
-  description: "BlackDAO AI Agent Interface",
+  description: "Empowering Autonomous AI Agents for All",
 };
 
 export default function RootLayout({
@@ -93,6 +93,33 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
+
+        {/* HTML Meta Tags */}
+        <meta property="og:url" content="https://blackdao.ai" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="BlackDAO" />
+        <meta
+          property="og:description"
+          content="Empowering Autonomous AI Agents for All"
+        />
+        <meta
+          property="og:image"
+          content="https://ogcdn.net/e4b8c678-7bd5-445d-ba03-bfaad510c686/v4/blackdao.ai/BlackDAO/https%3A%2F%2Fopengraph.b-cdn.net%2Fproduction%2Fimages%2F009c0988-295f-4ee6-93f5-5a5464f4dd30.png%3Ftoken%3D_W_udaXNLyhP7AF4Vs6r3FB50wgotAnPKAEL6MPGC0g%26height%3D500%26width%3D500%26expires%3D33268641314/og.png"
+        />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="blackdao.ai" />
+        <meta property="twitter:url" content="https://blackdao.ai" />
+        <meta name="twitter:title" content="BlackDAO" />
+        <meta
+          name="twitter:description"
+          content="Empowering Autonomous AI Agents for All"
+        />
+        <meta
+          name="twitter:image"
+          content="https://ogcdn.net/e4b8c678-7bd5-445d-ba03-bfaad510c686/v4/blackdao.ai/BlackDAO/https%3A%2F%2Fopengraph.b-cdn.net%2Fproduction%2Fimages%2F009c0988-295f-4ee6-93f5-5a5464f4dd30.png%3Ftoken%3D_W_udaXNLyhP7AF4Vs6r3FB50wgotAnPKAEL6MPGC0g%26height%3D500%26width%3D500%26expires%3D33268641314/og.png"
+        />
       </head>
       <body
         className={`antialiased min-h-screen relative noise-bg ${audiowide.className}`}
