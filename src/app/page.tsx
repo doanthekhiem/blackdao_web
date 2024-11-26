@@ -7,7 +7,7 @@ export default function Home() {
     );
   return (
     <div
-      className="aspect-[1303/690] flex justify-between flex-col px-5"
+      className="aspect-[1303/690] flex justify-between flex-col px-2 sm:px-5"
       style={{
         backgroundImage: `url('/CITY.webp')`,
         backgroundSize: "cover",
@@ -22,10 +22,10 @@ export default function Home() {
       </div>
 
       {/* Main content */}
-      <div className=" flex gap-8 mt-8 pl-20 pr-[72px]">
+      <div className="flex flex-col-reverse md:flex-row gap-4 md:gap-8 mt-4 md:mt-8 px-2 md:px-20">
         {/* Chat section */}
         <div className="flex-1">
-          <div className="text-white text-4xl mb-6 bg-black/80 p-4 w-fit hover:animate-glitch">
+          <div className="text-white text-2xl md:text-4xl mb-4 md:mb-6 bg-black/80 p-2 md:p-4 w-fit hover:animate-glitch">
             LUCY
           </div>
 
@@ -48,16 +48,16 @@ export default function Home() {
             <input
               type="text"
               placeholder="Type your message here..."
-              className="w-full bg-black/40 text-white p-3 rounded border border-purple-500"
+              className="w-full bg-black/40 text-white p-2 md:p-3 rounded border border-purple-500 text-sm md:text-base"
             />
-            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-500">
+            <button className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 text-purple-500">
               →
             </button>
           </div>
         </div>
 
         {/* Avatar section */}
-        <div className="w-80 group">
+        <div className="w-40 md:w-80 mx-auto md:mx-0 group">
           <Image
             width={360}
             height={360}

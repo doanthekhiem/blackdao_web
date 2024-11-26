@@ -11,7 +11,7 @@ export default {
       animation: {
         marquee: "marquee 25s linear infinite",
         glitch:
-          "glitch 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite",
+          "glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite",
         "image-glitch":
           "image-glitch 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite",
       },
