@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Audiowide } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 const audiowide = Audiowide({
   weight: "400",
@@ -166,6 +167,7 @@ export default function RootLayout({
               BlackDAO AI Agent Contract
             </div>
           </footer>
+          <Analytics />
         </div>
       </body>
     </html>
