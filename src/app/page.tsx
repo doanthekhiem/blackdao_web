@@ -7,7 +7,7 @@ export default function Home() {
     );
   return (
     <div
-      className="aspect-[1303/690] flex justify-between flex-col px-2 sm:px-5"
+      className="aspect-[1303/690] flex justify-between flex-col px-2 sm:px-5 background-glitch"
       style={{
         backgroundImage: `url('/CITY.webp')`,
         backgroundSize: "cover",

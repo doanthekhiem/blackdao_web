@@ -54,3 +54,42 @@ body {
   color: white;
   font-family: monospace;
 }
+
+@keyframes background-glitch {
+  0% {
+    filter: none;
+    transform: none;
+  }
+  92% {
+    filter: none;
+    transform: none;
+  }
+  93% {
+    filter: hue-rotate(90deg) contrast(150%);
+    transform: translate(2px, -2px);
+  }
+  94% {
+    filter: hue-rotate(-90deg) contrast(150%);
+    transform: translate(-2px, 2px);
+  }
+  95% {
+    filter: grayscale(100%) contrast(200%);
+    transform: translate(0, 0);
+  }
+  96% {
+    filter: none;
+    transform: none;
+  }
+  97% {
+    filter: invert(100%) hue-rotate(180deg);
+    transform: scale(1.01);
+  }
+  98% {
+    filter: none;
+    transform: none;
+  }
+}
+
+.background-glitch {
+  animation: background-glitch 5s infinite;
+}
