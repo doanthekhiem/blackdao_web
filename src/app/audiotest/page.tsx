@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 
 export default function AudioTest() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isIOSReady, setIsIOSReady] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [showOverlay, setShowOverlay] = useState(true);
 
@@ -46,7 +45,6 @@ export default function AudioTest() {
         console.log("Initialization successful");
         
         // Đánh dấu đã sẵn sàng và ẩn overlay
-        setIsIOSReady(true);
         setShowOverlay(false);
         
         // Phát audio lần đầu
