@@ -3,53 +3,68 @@ import { useEffect, useRef, useState } from "react";
 
 export default function AudioTest() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isIOSReady, setIsIOSReady] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [showOverlay, setShowOverlay] = useState(true);
 
-  const playAudio = async () => {
-    if (audioRef.current) {
-      try {
-        audioRef.current.currentTime = 0;
-        await audioRef.current.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.error("Lỗi phát audio:", error);
+  // Hàm phát audio trong loop
+  const playAudioLoop = async () => {
+    if (!audioRef.current) {
+      console.log("Audio ref not ready");
+      return;
+    }
+    
+    try {
+      console.log("Starting playback...");
+      audioRef.current.currentTime = 0;
+      audioRef.current.volume = 1;
+      const finalPlayPromise = audioRef.current.play();
+      if (finalPlayPromise !== undefined) {
+        await finalPlayPromise;
+        console.log("Audio playing successfully");
       }
+    } catch (error) {
+      console.error("Audio loop error:", error);
     }
   };
 
-  const handlePlayPause = async () => {
-    if (audioRef.current) {
-      if (isPlaying) {
+  // Hàm khởi tạo và phát audio
+  const initAndPlayAudio = async () => {
+    if (!audioRef.current) {
+      console.log("Audio ref not ready");
+      return;
+    }
+    
+    try {
+      console.log("Starting initialization...");
+      // Khởi tạo audio
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        await playPromise;
+        await new Promise(resolve => setTimeout(resolve, 100));
         audioRef.current.pause();
-        setIsPlaying(false);
-        setAutoPlay(false);
+        console.log("Initialization successful");
+        
+        // Đánh dấu đã sẵn sàng và ẩn overlay
+        setIsIOSReady(true);
+        setShowOverlay(false);
+        
+        // Phát audio lần đầu
+        await playAudioLoop();
+        
+        // Thiết lập interval
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
-      } else {
-        await playAudio();
-        setIsIOSReady(true);
+        intervalRef.current = setInterval(playAudioLoop, 2000);
       }
+    } catch (error) {
+      console.error("Init error:", error);
     }
   };
 
-  const toggleAutoPlay = async () => {
-    if (!isIOSReady) {
-      alert("Vui lòng nhấn Play một lần để kích hoạt audio trên iOS");
-      return;
-    }
-
-    setAutoPlay(!autoPlay);
-  };
-
+  // Cleanup khi component unmount
   useEffect(() => {
-    if (autoPlay && isIOSReady) {
-      intervalRef.current = setInterval(playAudio, 2000);
-    }
-
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -58,40 +73,47 @@ export default function AudioTest() {
         audioRef.current.pause();
       }
     };
-  }, [autoPlay, isIOSReady]);
+  }, []);
+
+  // Kiểm tra audio loaded
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener('loadeddata', () => {
+        console.log("Audio file loaded successfully");
+      });
+      audioRef.current.addEventListener('error', (e) => {
+        console.error("Audio loading error:", e);
+      });
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black/80">
+      {/* Overlay div để bắt sự kiện click */}
+      {showOverlay && (
+        <div 
+          className="fixed inset-0 w-full h-full z-50 cursor-pointer"
+          style={{ opacity: 0 }}
+          onClick={async (e) => {
+            e.stopPropagation();
+            console.log("Overlay clicked");
+            await initAndPlayAudio();
+          }}
+        />
+      )}
+
       <h1 className="text-4xl text-white mb-8 hover:animate-glitch">
         Audio Test Page
       </h1>
 
-      <div className="bg-black/40 p-8 rounded-lg hover:animate-glitch flex flex-col gap-4">
+      <div className="bg-black/40 p-8 rounded-lg hover:animate-glitch">
         <audio
           playsInline={true}
+          preload="auto"
           ref={audioRef}
-          autoPlay={true}
-          src="/audios/new_effect_pop_updated.mp3"
-          className="mb-4"
+          src="/audios/Recording.m4a"
+          onCanPlay={() => console.log("Audio can play now")}
         />
-
-        <button
-          onClick={handlePlayPause}
-          className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors"
-        >
-          {isPlaying ? "Pause" : "Play"}
-        </button>
-
-        <button
-          onClick={toggleAutoPlay}
-          className={`px-6 py-3 rounded-lg transition-colors ${
-            autoPlay
-              ? "bg-red-500 hover:bg-red-600"
-              : "bg-green-500 hover:bg-green-600"
-          } text-white`}
-        >
-          {autoPlay ? "Tắt Auto Play" : "Bật Auto Play (2s)"}
-        </button>
       </div>
     </div>
   );
